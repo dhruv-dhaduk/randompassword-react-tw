@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import { useCallback } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 
@@ -16,7 +17,7 @@ function App() {
         passwordRef.current.select();
     }
 
-    useEffect(() => {
+    const generatePassword = useCallback(() => {
 
         let str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
@@ -33,7 +34,11 @@ function App() {
 
         setPassword(pass);
 
-    }, [length, numbersAllow, symbolsAllow]);
+    }, [length, numbersAllow, symbolsAllow, setLength]);
+
+    useEffect(() => {
+        generatePassword();
+    }, [length, numbersAllow, symbolsAllow, generatePassword]);
 
     return  (
         <div className="bg-slate-800 w-full max-w-xl h-fit absolute inset-0 m-auto p-4 rounded-lg">
