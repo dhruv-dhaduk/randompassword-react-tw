@@ -1,4 +1,12 @@
+import { useState } from "react";
+
 function App() {
+
+    const [password, setPassword] = useState("");
+    const [length, setLength] = useState(8);
+    const [numbersAllow, setNumbersAllow] = useState(false);
+    const [symbolsAllow, setSymbolsAllow] = useState(false);
+
     return  (
         <div className="bg-slate-800 w-full max-w-xl h-fit absolute inset-0 m-auto p-4 rounded-lg">
             <div>
@@ -7,9 +15,9 @@ function App() {
 
                     <input 
                         type="text" 
-                        value="ABCDEFGH"
+                        value={password}
 
-                        disabled="true"
+                        disabled={true}
 
                         className="bg-white text-black flex-8 rounded-l-xl p-4 text-lg"
                     />
@@ -27,21 +35,25 @@ function App() {
                             type="range"
                             min="6"
                             max="30"
-                            value="8"
+                            value={length}
 
                             className="accent-blue-600 h-1"
+
+                            onChange={ (e) => setLength(e.target.value) }
                         />
 
                         <p> 
-                            (Length : 8)
+                            (Length : {length} )
                         </p>
                     </div>
 
                     <div className="flex justify-center items-center gap-1">
                         <input 
                             type="checkbox" 
-                            
+                            checked={numbersAllow}
                             className="w-4 h-4"
+
+                            onChange={() => setNumbersAllow(prev => !prev) }
                         />
 
                         <p>
@@ -52,8 +64,10 @@ function App() {
                     <div className="flex justify-center items-center gap-1">
                         <input 
                             type="checkbox" 
-                            
+                            checked={symbolsAllow}
                             className="w-4 h-4"
+
+                            onChange={() => setSymbolsAllow(prev => !prev) }
                         />
 
                         <p>
