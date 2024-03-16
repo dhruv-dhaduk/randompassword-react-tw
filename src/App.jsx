@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useState } from "react";
 
 function App() {
@@ -6,6 +7,29 @@ function App() {
     const [length, setLength] = useState(8);
     const [numbersAllow, setNumbersAllow] = useState(false);
     const [symbolsAllow, setSymbolsAllow] = useState(false);
+
+    function copyPassword() {
+        window.navigator.clipboard.writeText(password);
+    }
+
+    useEffect(() => {
+
+        let str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+
+        if (numbersAllow) str += "0123456789";
+        if (symbolsAllow) str += "~!@#$%^&*()-_=+{}[];:?*";
+
+        let pass = "";
+
+        for (let i = 0; i < length; i++) {
+            let charIndex = Math.floor(str.length * Math.random());
+
+            pass += str.charAt(charIndex);
+        }
+
+        setPassword(pass);
+
+    }, [length, numbersAllow, symbolsAllow]);
 
     return  (
         <div className="bg-slate-800 w-full max-w-xl h-fit absolute inset-0 m-auto p-4 rounded-lg">
@@ -22,7 +46,10 @@ function App() {
                         className="bg-white text-black flex-8 rounded-l-xl p-4 text-lg"
                     />
 
-                    <button className="bg-blue-600 text-white flex-2 rounded-r-xl text-xl font-bold">
+                    <button 
+                        className="bg-blue-600 text-white flex-2 rounded-r-xl text-xl font-bold"
+                        onClick={copyPassword}
+                    >
                         Copy
                     </button>
 
