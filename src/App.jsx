@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 
@@ -8,8 +9,11 @@ function App() {
     const [numbersAllow, setNumbersAllow] = useState(false);
     const [symbolsAllow, setSymbolsAllow] = useState(false);
 
+    const passwordRef = useRef(null);
+
     function copyPassword() {
         window.navigator.clipboard.writeText(password);
+        passwordRef.current.select();
     }
 
     useEffect(() => {
@@ -40,10 +44,11 @@ function App() {
                     <input 
                         type="text" 
                         value={password}
-
-                        disabled={true}
+                        ref={passwordRef}
 
                         className="bg-white text-black flex-8 rounded-l-xl p-4 text-lg"
+
+                        onChange={() => {}}
                     />
 
                     <button 
@@ -61,7 +66,7 @@ function App() {
                         <input 
                             type="range"
                             min="6"
-                            max="30"
+                            max="40"
                             value={length}
 
                             className="accent-blue-600 h-1"
